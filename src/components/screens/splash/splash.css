@@ -1,0 +1,30 @@
+.image-div{
+    position: relative;
+    animation: image-animation 1s;
+}
+.buttons{
+    position: relative;
+    animation: image-animation 1s;   
+}
+.content{
+    position: relative;
+    animation: content-p 1s;
+}
+
+@keyframes content-p {
+    0%{
+        left:-500px;
+    }
+    100%{
+        left:0;
+    }
+}
+
+@keyframes image-animation {
+    0%{
+        top:500px
+    }
+    100%{
+        top:0
+    }
+}
