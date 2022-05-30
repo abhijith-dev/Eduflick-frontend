@@ -10,8 +10,22 @@ export default function SplashNavbar() {
       sx={styles.headers}
       position="static">
         <Toolbar variant="dense">
-          <Typography variant="h6" color="inherit" component="div">
-             Eduflick
+        <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Eduflick
           </Typography>
         </Toolbar>
       </AppBar>

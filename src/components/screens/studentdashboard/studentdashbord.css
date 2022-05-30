@@ -1,0 +1,18 @@
+@font-face {
+    font-family: customized;
+    src: url('../../../assets//fonts//Roboto-Light.ttf');
+}
+
+.video-content{
+    color:rgb(103, 83, 103);
+    margin-left: 5rem;
+}
+
+.video-card{
+    cursor: pointer;
+}
+
+li{
+    color: #fff;
+    font-family: customized;
+} 

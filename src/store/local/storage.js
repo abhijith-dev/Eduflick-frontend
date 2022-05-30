@@ -4,7 +4,7 @@ export function addItem(key,value){
 }
 
 export function getItem(key){
-    localStorage.getItem(key)
+    return localStorage.getItem(key)
 }
 
 export function removeItem(key){
