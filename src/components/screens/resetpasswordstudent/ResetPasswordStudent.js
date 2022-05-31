@@ -7,6 +7,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { forgotPassword, resetPassword } from '../../../Interceptors/authentication';
 
 const theme = createTheme({
     palette:{
@@ -16,22 +17,29 @@ const theme = createTheme({
 
 export default function ResetPasswordStudent() {
   const [toggle,setToggle] = React.useState(true)
-  
+  const [error,setError] = React.useState(false)
+  const [errorMessage,setErrorMessage] = React.useState('')
+  const [loading,setLoading] = React.useState(false)
+
   const handleSubmit1 =async (event) => {
     
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    let body ={
-      email:data.get('email'),
-    }
-    console.log(body)
+    const body = new FormData()
+    body.append('ToEmail',data.get('usn'))
+    await forgotPassword(body)
     setToggle(false)
   }
 
   const handleSubmit2 =async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(data)   
+    let body = {
+       pin: data.get('pin'),
+       password:data.get('password1')
+    }  
+    let response = await resetPassword(body)
+
   };
 
   return (
@@ -61,10 +69,10 @@ export default function ResetPasswordStudent() {
               required
               fullWidth
               color='secondary'
-              id="email"
-              label="Email Address"
+              id="usn"
+              label="USN"
               style={{backgroundColor:"#fff",borderRadius:"10px"}}
-              name="email"
+              name="usn"
               autoComplete="off"
             />
             <Button

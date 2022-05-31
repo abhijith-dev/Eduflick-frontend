@@ -10,20 +10,42 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Link} from 'react-router-dom';
 import './studentsignup.css';
+import { createStudent } from '../../../Interceptors/authentication';
+import Error from '../../widgets/exception/Error';
+import Loading from '../../widgets/loading/Loading';
+
 const customTheme = createTheme({
   palette:{
     dark:"#222"
   }
 })
-
 export default function StudentSignupScreen() {
-    const handleSubmit = (event) => {
+    const [error,setError] = React.useState(false)
+    const [errorMessage,setErrorMessage] = React.useState('')
+    const [loading,setLoading] = React.useState(false)
+    const handleSubmit = async(event) => {
         event.preventDefault();
+        setLoading(true)
         const data = new FormData(event.currentTarget);
-        console.log({
+        let body = {
+            name: `${data.get('firstName')} ${data.get('lastName')}`,
+            password: data.get('password1'),
             email: data.get('email'),
-            password: data.get('password'),
-        });
+            USN: data.get('usn'),
+            semister: data.get('sem'),
+            dob:'',
+            specialization:''
+        }
+        let response = await createStudent(body)
+        if(response.error){
+          setError(true)
+          setErrorMessage('opps something went wrong !!')
+          setLoading(false)
+        }
+        else{
+          setLoading(false)
+          window.location.href = '/student'
+        }
     };
   return (
     <div style={{width:"100vw",height:"100%",backgroundColor:"#222",color:"#222"}}>
@@ -43,6 +65,12 @@ export default function StudentSignupScreen() {
           <Typography component="h1" variant="h5">
              Student Sign up
           </Typography>
+          {
+          error?(<Error message={errorMessage} source={'while creating account'} />):null
+          }
+          {
+          loading?(<Loading />):null
+          }
           <Box component="form" onSubmit={handleSubmit} validate={true} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>

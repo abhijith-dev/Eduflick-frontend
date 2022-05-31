@@ -12,6 +12,11 @@ import ResetPasswordStudent from "./components/screens/resetpasswordstudent/Rese
 import StudentDashbord from "./components/screens/studentdashboard/StudentDashbord";
 import TeacherDashboard from "./components/screens/teacherdashboard/TeacherDashboard";
 import { getItem } from "./store/local/storage";
+import StudentProfile from "./components/widgets/profile/StudentProfile";
+import StudentCourse from "./components/widgets/courselist/StudentCourse";
+import TrainerList from "./components/widgets/explore/TrainerList";
+import TeacherProfile from "./components/widgets/profile/TeacherProfile";
+import TeacherCourse from "./components/widgets/courselist/TeacherCourse";
 
 function RouteController() {
   const [user,setUser] = React.useState(null)
@@ -38,6 +43,11 @@ function RouteController() {
         <Route path="/course/:id" element={<VideoPlayer />} />
         <Route path="/exam/:id" element={<QuestionsPaper />} />
         <Route path="/reset" element={<ResetPasswordStudent />} />
+        <Route path="/student/profile" element={<StudentProfile/>} />
+        <Route path="/student/course" element={<StudentCourse/>} />
+        <Route path="/student/explore" element={<TrainerList/>} />
+        <Route path="/teacher/profile" element={<TeacherProfile/>} />
+        <Route path="/teacher/course" element={<TeacherCourse/>} />
       </Routes>
     </BrowserRouter>
   );

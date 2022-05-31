@@ -1,33 +1,18 @@
 import React from 'react'
 import { Grid, Button,Radio,RadioGroup,FormControlLabel,Typography } from '@mui/material'
 import './questionpaper.css'
-const questions =[
-  {
-    question:'In which sector ReactJS used?',
-    o1:'back-end',
-    o2:'database',
-    o3:'networking',
-    o4:'front-end',
-    ans:'front-end'
-  },
-  {
-    question:'which language used in ReactJS?',
-    o1:'java',
-    o2:'javascript',
-    o3:'python',
-    o4:'c++',
-    ans:'javascript'
-  },
-  {
-    question:'who introduced ReactJS?',
-    o1:'facebook',
-    o2:'google',
-    o3:'microsoft',
-    o4:'IBM',
-    ans:'facebook'
-  }
-]
+import { getQuestions,submitQuestions } from '../../../Interceptors/student';
 export default function QuestionsPaper() {
+  const [questions,setQuestions] = React.useState([])
+  React.useEffect(()=>{
+    async function fetch(){
+      let url = window.location.pathname;
+     let id = url.substring(url.lastIndexOf('/') + 1);
+      let data = await getQuestions(id)
+      setQuestions(data)
+    }
+    fetch()
+  },[])
   const answerCheck = async(e)=>{
      e.preventDefault()
      let answerSheet = {}
@@ -36,14 +21,16 @@ export default function QuestionsPaper() {
      const data = new FormData(e.currentTarget)
      for(let i =0;i<questions.length;i++){
        answerSheet[i+1] = data.get(`q-${i+1}`)
-       correctAnswerSheet[i+1] = questions[i].ans
+       correctAnswerSheet[i+1] = questions[i].answer
      }
      for(let i =0;i<questions.length;i++){
        if(answerSheet[i+1] === correctAnswerSheet[i+1] ){
          correctAnswerCount++
        }
     }
-    alert(`Score ${correctAnswerCount}/${questions.length}`)
+    let url = window.location.pathname;
+    let id = url.substring(url.lastIndexOf('/') + 1);
+    await submitQuestions(correctAnswerCount,id) 
     window.location.href="/"
   }
   return (
@@ -62,30 +49,30 @@ export default function QuestionsPaper() {
                  name={`q-${index+1}`}
                  defaultValue="top"
                >
-                 <FormControlLabel value={qn.o1} control={<Radio sx={{
+                 <FormControlLabel value={qn.option1} control={<Radio sx={{
                    color: 'purple',
                    '&.Mui-checked': {
                      color: 'purple',
                    },
-                 }} />} label={qn.o1} />
-                 <FormControlLabel value={qn.o2} control={<Radio sx={{
+                 }} />} label={qn.option1} />
+                 <FormControlLabel value={qn.option2} control={<Radio sx={{
                    color: 'purple',
                    '&.Mui-checked': {
                      color: 'purple',
                    },
-                 }} />} label={qn.o2} />
-                 <FormControlLabel value={qn.o3} control={<Radio sx={{
+                 }} />} label={qn.option2} />
+                 <FormControlLabel value={qn.option3} control={<Radio sx={{
                    color: 'purple',
                    '&.Mui-checked': {
                      color: 'purple',
                    },
-                 }} />} label={qn.o3} />
-                 <FormControlLabel value={qn.o4} control={<Radio sx={{
+                 }} />} label={qn.option3} />
+                 <FormControlLabel value={qn.option4} control={<Radio sx={{
                    color: 'purple',
                    '&.Mui-checked': {
                      color: 'purple',
                    },
-                 }} />} label={qn.o4} />
+                 }} />} label={qn.option4} />
                </RadioGroup>
                <hr></hr>
             </Grid>    

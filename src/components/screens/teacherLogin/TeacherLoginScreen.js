@@ -10,6 +10,11 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Link} from 'react-router-dom';
 import './teacherlogin.css'
+import { loginTeacher } from '../../../Interceptors/authentication';
+import Error from '../../widgets/exception/Error';
+import Loading from '../../widgets/loading/Loading';
+import {addItem} from '../../../store/local/storage'
+
 const customTheme = createTheme({
     palette:{
       dark:"#222"
@@ -17,13 +22,30 @@ const customTheme = createTheme({
 })
 
 export default function TeacherLoginScreen() {
-  const handleSubmit = (event) => {
+  const [error,setError] = React.useState(false)
+  const [errorMessage,setErrorMessage] = React.useState('')
+  const [loading,setLoading] = React.useState(false)
+  const handleSubmit =async (event) => {
     event.preventDefault();
+    setLoading(true)
     const data = new FormData(event.currentTarget);
-    console.log({
+    let body = {
       email: data.get('email'),
-      password: data.get('password'),
-    });
+      password: data.get('password')
+    }
+    let response = await loginTeacher(body)
+    if(response.error){
+      setLoading(false)
+      setError(true)
+      setErrorMessage('authentication problem')
+    }
+    else{
+      setLoading(false)
+      addItem('token',`Bearer ${response.data.token}`)
+      addItem('role','trainer')
+      addItem('user',JSON.stringify(response.data.trainer))
+      window.location.href="/"
+    }
   };
 
   return (
@@ -44,6 +66,12 @@ export default function TeacherLoginScreen() {
           <Typography component="h1" variant="h5">
             Trainer Sign In
           </Typography>
+          {
+            error?(<Error message={errorMessage} source={'while logging Trainer'}/>):null
+          }
+          {
+            loading?(<Loading />):null
+          }
           <Box component="form" onSubmit={handleSubmit} validate={true} sx={{ mt: 1 }}>
             <TextField
               margin="normal"

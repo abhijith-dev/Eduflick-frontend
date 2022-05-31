@@ -8,7 +8,7 @@ import {Timer} from '@mui/icons-material';
 
 export default function MediaCard({course,videoSelection}) {
   return (
-    <Card onClick={()=>{videoSelection(course.id)}} className='video-card' mt={5} sx={{ width: "95%",backgroundColor:"#fff"}}>
+    <Card onClick={()=>{videoSelection(course.courseID)}} className='video-card' mt={5} sx={{ width: "95%",backgroundColor:"#fff"}}>
     <CardActionArea>
       <Grid container xs={12} direction={"row"}>
         <Grid item xs={4}>
@@ -22,22 +22,22 @@ export default function MediaCard({course,videoSelection}) {
       <Grid item xs={8}>
       <CardContent className='video-content'>
         <Typography gutterBottom variant="h5" component="div">
-          {course.name}
+          {course.courseName}
         </Typography>
         <Typography gutterBottom variant="body1" component="div">
-          - {course.author}
+          - {course.instructorId}
         </Typography>
         <Typography variant="body2" color="text.secondary">
          {course.description}
         </Typography>
         <br></br>
         <Typography variant="body2" color="text.secondary">
-         upload time :{course.updatedAt}
+         upload time :{course.createdDate}
         </Typography>
         <br></br>
          <Stack direction={"row"}>
          <Timer/>
-         <Typography variant="body2" style={{marginTop:"0.2rem"}} color="text.secondary">&nbsp;&nbsp;01:00:24</Typography>
+         <Typography variant="body2" style={{marginTop:"0.2rem"}} color="text.secondary">&nbsp;&nbsp;{course.courseDuration}</Typography>
          </Stack>
       </CardContent>
       </Grid>

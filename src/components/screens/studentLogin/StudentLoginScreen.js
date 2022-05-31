@@ -10,6 +10,11 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Link} from 'react-router-dom';
 import './studentlogin.css'
+import { loginStudent } from '../../../Interceptors/authentication';
+import {addItem} from '../../../store/local/storage'
+import Error from '../../widgets/exception/Error';
+import Loading from '../../widgets/loading/Loading';
+
 const customTheme = createTheme({
     palette:{
       dark:"#222"
@@ -17,13 +22,31 @@ const customTheme = createTheme({
 })
 
 export default function StudentLoginScreen() {
-  const handleSubmit = (event) => {
+ const [error,setError] = React.useState(false)
+ const [errorMessage,setErrorMessage] = React.useState('')
+ const [loading,setLoading] = React.useState(false)
+  const handleSubmit = async(event) => {
     event.preventDefault();
+    setLoading(true)
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    let body = {
+      usn: data.get('usn'),
       password: data.get('password'),
-    });
+    };
+    let response = await loginStudent(body)
+
+    if(response.error){
+      setLoading(false)
+      setError(true)
+      setErrorMessage('authentication problem')
+    }
+    else{
+      setLoading(false)
+      addItem('token',`Bearer ${response.data.token}`)
+      addItem('role','learner')
+      addItem('user',JSON.stringify(response.data.learner))
+      window.location.href="/"
+    }
   };
 
   return (
@@ -44,14 +67,20 @@ export default function StudentLoginScreen() {
           <Typography component="h1" variant="h5">
              Student Sign In
           </Typography>
+          {
+            error?(<Error message={errorMessage} source={'while logging student'}/>):null
+          }
+          {
+            loading?(<Loading />):null
+          }
           <Box component="form" onSubmit={handleSubmit} validate={true} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
+              id="usn"
+              label="USN"
+              name="usn"
               color="secondary"
               style={{backgroundColor:"#fff",borderRadius:"10px"}}
             />

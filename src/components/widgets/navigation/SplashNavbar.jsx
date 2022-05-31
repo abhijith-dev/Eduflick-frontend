@@ -3,6 +3,8 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Logo from '../../../assets/images/logo.png';
+
 export default function SplashNavbar() {
   return (
     <Box>
@@ -10,6 +12,8 @@ export default function SplashNavbar() {
       sx={styles.headers}
       position="static">
         <Toolbar variant="dense">
+        <img src={Logo} alt="logo" style={{borderRadius:"100%"}} width={"45px"} height={"45px"} />
+        &nbsp;&nbsp;
         <Typography
             variant="h6"
             noWrap

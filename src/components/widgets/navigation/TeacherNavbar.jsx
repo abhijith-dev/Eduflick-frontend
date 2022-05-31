@@ -12,20 +12,19 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {removeItem} from '../../../store/local/storage';
+import {removeItem} from '../../../store/local/storage'
 import getUserInfo from '../../../functions/getUserInfo';
 import Logo from '../../../assets/images/logo.png';
 
 const pages = [];
+
 const myProfile = async()=>{
-  window.location.href = '/student/profile'
+  window.location.href = '/teacher/profile'
 }
 const myCourse = async()=>{
-  window.location.href = '/student/course'
+  window.location.href = '/teacher/course'
 }
-const explore = async()=>{
-  window.location.href = '/student/explore'
-}
+
 const home = async()=>{
   window.location.href = '/'
 }
@@ -35,7 +34,7 @@ const logout = async()=>{
   window.location.href = '/'
 }
 
-const StudentNavbar = () => {
+const TeacherNavbar = () => {
   const [first,setFirst] = React.useState('')
   React.useEffect(()=>{
     let users = getUserInfo()
@@ -68,10 +67,6 @@ const StudentNavbar = () => {
       function:myProfile
     },
     {
-      name:'explore trainer',
-      function:explore
-    },
-    {
       name:'my courses',
       function:myCourse
     },
@@ -85,7 +80,7 @@ const StudentNavbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
         <img src={Logo} alt="logo" style={{borderRadius:"100%"}} width={"45px"} height={"45px"} />
-          &nbsp;&nbsp;
+         &nbsp;&nbsp;
           <Typography
             variant="h6"
             noWrap
@@ -140,7 +135,6 @@ const StudentNavbar = () => {
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          
           <Typography
             variant="h5"
             noWrap
@@ -205,7 +199,7 @@ const StudentNavbar = () => {
     </AppBar>
   );
 };
-export default StudentNavbar;
+export default TeacherNavbar;
 
 
 const styles = {

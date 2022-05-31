@@ -2,6 +2,11 @@
     font-family: customized;
     src: url('./assets/fonts/Roboto-Light.ttf');
 }
+
+@font-face {
+    font-family: diff;
+    src: url('./assets/fonts/WorkSans-Regular.ttf');
+} 
 body{
     margin: 0;
     padding: 0;
@@ -12,4 +17,10 @@ body{
 h1,h2,h3,h4,h5,h6,p{
     color: rgb(255, 251, 251);
     font-family: customized;   
+}
+
+.diff{
+    color: rgb(255, 244, 244);
+    font-family: diff; 
+    font-weight: 300; 
 }

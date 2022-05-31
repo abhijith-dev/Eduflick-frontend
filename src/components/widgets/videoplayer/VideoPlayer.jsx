@@ -6,51 +6,45 @@ import {NotificationsActive,Notifications} from '@mui/icons-material'
 
 export default function VideoPlayer() {
   const [btn,setBtn] = React.useState(false)
-  const [sub,setSub] = React.useState(false)
+  const [course,setCourse] = React.useState([])
+  const [id,setId] = React.useState('')
+  React.useEffect(()=>{
+    let courses = JSON.parse(sessionStorage.getItem('courses'))
+    let url = window.location.pathname;
+    let id = url.substring(url.lastIndexOf('/') + 1);
+    setId(id)
+    let temp = courses.filter(ele=>ele.courseID === id)
+    setCourse(temp)
+  },[])
   const showQuestionsButton = async()=>{
       setBtn(true)
   }
   const getQuizQuestions = async()=>{
-    window.location.href = `/exam/${'2'}`
+    window.location.href = `/exam/${id}`
   }
+  
   return (
     <Grid margin={5} container xs={12} gap={3} direction={"row"}>
      <Grid item xs={7}>
-     <h1 style={{color:"rgb(115, 8, 115)"}} >React front-end development</h1>
+     <h1 style={{color:"rgb(115, 8, 115)"}} >{course[0].courseName}</h1>
       <ReactPlayer
-      url='https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/49_20HQOeijh9fog1/videoblocks-20053_b5pdzwqmk__7ed819dd7cf44b9d44af2e51babcbcf6__P360.mp4' 
+      url={course[0].url} 
       controls={true}
       onEnded={showQuestionsButton}
       playIcon={<TryRounded/>}
       />
-      <Stack direction={"row"} mt={3}>
-      <h4>    K.N Murthy</h4>
-          {
-            sub?(<Button 
-              size='small'
-              variant="contained"
-              sx={{ mt: 2, mb: 2 ,ml:2}}
-              style={{ backgroundColor: "grey", color: "#fff" }} 
-              ><NotificationsActive />Subscribed</Button>):(<Button 
-                size='small'
-                variant="contained"
-                sx={{ mt: 2, mb: 2 ,ml:2}}
-                style={{ backgroundColor: "rgb(107, 13, 107)", color: "#fff" }} 
-                ><Notifications />Subscribe</Button>)
-          }
-      </Stack>
      </Grid>
      <Grid mt={5} item xs={4}>
      <h2 style={{color:"rgb(115, 8, 115)"}} >Course Description </h2>
-     <h4>We recommend reading this tutorial, in the sequence listed in the left menu.Java is an object oriented language and some concepts may be new. Take breaks when needed, and go over the examples as many times as needed.</h4>
+     <h4>{course[0].description}</h4>
      <br></br><br></br>
      <h2 style={{color:"rgb(115, 8, 115)"}} >Topic covered </h2>
      <ul>
-       <li>React components</li>
-       <li>JSX</li>
-       <li>React Hooks</li>
-       <li>Material UI adpotion</li>
-       <li>Next.js Implementation</li>
+       {
+         course[0].topics.map(e=>(
+          <li>{e}</li>
+         ))
+       }
      </ul>
      {
         btn ? (<Button
