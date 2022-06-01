@@ -11,7 +11,7 @@ export default function StudentDashbord() {
   const [courses,setCourses] = React.useState([])
   const [loading,setLoading] = React.useState(false)
   React.useEffect(()=>{
-    //setLoading(true)
+    setLoading(true)
     async function fetch(){
       let data = await videoDetails()
       setCourses(data)
@@ -30,7 +30,7 @@ export default function StudentDashbord() {
        loading?(<Loading />):null
      }
     {
-      courses.length?(
+      courses!=null?(
         <div style={{marginTop:"5rem",marginBottom:"3rem"}}>
       {
         courses.map(course=>(

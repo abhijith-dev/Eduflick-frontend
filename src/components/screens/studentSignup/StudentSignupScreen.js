@@ -33,8 +33,9 @@ export default function StudentSignupScreen() {
             email: data.get('email'),
             USN: data.get('usn'),
             semister: data.get('sem'),
-            dob:'',
-            specialization:''
+            dob:'2022-01-20',
+            specialization:'CSE',
+            username:'test'
         }
         let response = await createStudent(body)
         if(response.error){

@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Link} from 'react-router-dom';
 import './teachersignup.css';
-import { createStudent } from '../../../Interceptors/authentication';
+import { createTeacher } from '../../../Interceptors/authentication';
 import Error from '../../widgets/exception/Error';
 import Loading from '../../widgets/loading/Loading';
 
@@ -40,10 +40,10 @@ export default function TeacherSignupScreen() {
             Specialization1:splData[0]?splData[0]:'',
             Specialization2:splData[1]?splData[1]:'',
             Specialization3:splData[2]?splData[2]:'',
-            createdate:date.toDateString(),
-            DateOfJoining:date.toDateString(),
+            createDate:'2022-03-10',
+            DateOfJoining:'2022-03-10',
         };
-        let response = await createStudent(body)
+        let response = await createTeacher(body)
         if(response.error){
           setError(true)
           setErrorMessage('opps something went wrong !!')

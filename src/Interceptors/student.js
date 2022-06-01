@@ -141,7 +141,10 @@ export async function submitQuestions(score,courseId){
         headers:headers
     })
     .then(res=>{
-       response = res.data
+        if(res.data===null)
+            response=[];
+        else
+            response = res.data;
     })
     .catch(error=>{
         response = []

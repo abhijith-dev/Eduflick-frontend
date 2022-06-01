@@ -13,7 +13,14 @@ export default function VideoPlayer() {
     let url = window.location.pathname;
     let id = url.substring(url.lastIndexOf('/') + 1);
     setId(id)
-    let temp = courses.filter(ele=>ele.courseID === id)
+    console.log(id)
+    //debugger;
+    let temp = courses.filter(ele=>{
+      if(ele.courseID===parseInt(id)){
+        return ele;
+      }
+    })
+    console.log(temp)
     setCourse(temp)
   },[])
   const showQuestionsButton = async()=>{
@@ -24,11 +31,13 @@ export default function VideoPlayer() {
   }
   
   return (
-    <Grid margin={5} container xs={12} gap={3} direction={"row"}>
+    <>
+    {course.length?(<>
+      <Grid margin={5} container xs={12} gap={3} direction={"row"}>
      <Grid item xs={7}>
      <h1 style={{color:"rgb(115, 8, 115)"}} >{course[0].courseName}</h1>
       <ReactPlayer
-      url={course[0].url} 
+      url={`https://localhost:44304/${course[0].url}`} 
       controls={true}
       onEnded={showQuestionsButton}
       playIcon={<TryRounded/>}
@@ -57,5 +66,7 @@ export default function VideoPlayer() {
      </Grid>
     
     </Grid>
+    </>):null}
+    </>
   )
 }

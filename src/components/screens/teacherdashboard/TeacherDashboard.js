@@ -27,6 +27,7 @@ export default function TeacherDashboard() {
   const [courseName,setCourseName] = React.useState('')
   const [courseDesc,setCourseDesc] = React.useState('')
   const [courseDuration,setCourseDuration] = React.useState('')
+  const [courseTopics,setCourseTopics] = React.useState('')
 
   const [file,setFile] = React.useState('')
   const [thumbnail,setThumbnail] = React.useState('')
@@ -36,7 +37,7 @@ export default function TeacherDashboard() {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <Basic setCourseName={setCourseName} setCourseDesc={setCourseDesc}  setCourseDuration={setCourseDuration} />;
+        return <Basic setCourseName={setCourseName} setCourseDesc={setCourseDesc}  setCourseDuration={setCourseDuration} setCourseTopics={setCourseTopics}  />;
       case 1:
         return <VideoDetails setFile={setFile} setThumbnail={setThumbnail} />;
       case 2:
@@ -47,10 +48,12 @@ export default function TeacherDashboard() {
   }
   const handleNext = async() => {
     if(activeStep === 0){
+      let topics=courseTopics.split(',');
       let body = {
         CourseName:courseName,
         Description:courseDesc,
-        CourseDuration:courseDuration
+        CourseDuration:courseDuration,
+        topics:topics
       }
       let response = await addCourseBasic(body)
       if(!response.error){

@@ -31,7 +31,7 @@ export default function QuestionsPaper() {
     let url = window.location.pathname;
     let id = url.substring(url.lastIndexOf('/') + 1);
     await submitQuestions(correctAnswerCount,id) 
-    window.location.href="/"
+    //window.location.href="/"
   }
   return (
     <>

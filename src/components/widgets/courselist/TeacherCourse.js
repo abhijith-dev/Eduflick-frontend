@@ -34,7 +34,7 @@ export default function TeacherCourse() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography color="#222" >{course.CourseName} ({course.CourseDuration}). course complition date : June 2022 </Typography>
+                  <Typography color="#222" >{course.courseName} ({course.courseDuration} minutes). course created date : {course.createdDate} </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography sx={{fontSize:"0.9rem"}} component="p" color="#222">

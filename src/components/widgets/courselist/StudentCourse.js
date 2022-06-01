@@ -39,7 +39,7 @@ export default function StudentCourse() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography color="#222" >{course.courseName} ({course.courseDuration}). course complition date : June 2022  </Typography>
+                  <Typography color="#222" >{course.courseName} ({course.courseDuration} minutes). course complition date : June 2022  </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography sx={{fontSize:"0.9rem"}} component="p" color="#222">
@@ -49,7 +49,7 @@ export default function StudentCourse() {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                                 style={{ backgroundColor: "rgb(107, 13, 107)", color: "#fff" }}
-                                onClick={()=>{downloadCertificate(course.CourseName,'june 2022')}}
+                                onClick={()=>{downloadCertificate(course.courseName,'june 2022')}}
                             >
                                 Download Certificate
                             </Button>

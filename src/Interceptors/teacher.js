@@ -35,12 +35,11 @@ export async function TeacherCourses(){
  */
 
  export async function addCourseBasic(body){
-    let response = null
+    let response = {}
     let date =  new Date()
     let user = getUserInfo()
     let userId = user.id
     body.InstructorId = userId
-    body.CreatedDate = date.toDateString()
     await axios({
         url:`${BASE_URL}/CoureCreation/course/createcourse`,
         method:'POST',
@@ -63,7 +62,7 @@ export async function TeacherCourses(){
  */
 
 export async function addCourseVideo(data){
-    let response = null
+    let response = {}
     let date =  new Date()
     let courseId = sessionStorage.getItem('courseId')
     await axios({
@@ -87,7 +86,7 @@ export async function addCourseVideo(data){
  */
 
  export async function addCourseQuestions(data){
-    let response = null
+    let response = {}
     let courseId = sessionStorage.getItem('courseId')
     await axios({
         url:`${BASE_URL}/CoureCreation/course/createquiz/${courseId}`,

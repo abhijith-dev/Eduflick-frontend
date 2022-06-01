@@ -20,12 +20,12 @@ export default function TrainerList() {
       setLoading(false)
     }
     fetch()
-  })
+  },[])
   const subscribe = async(event)=>{
     document.querySelector(`#${event.target.id}`).innerText = "subscribed"
     document.querySelector(`#${event.target.id}`).style.backgroundColor = "grey"
     let id =  (event.target.id).toString().split("-")[1];
-    await subscribeTrainer(id)
+    await subscribeTrainer(parseInt(id))
   }
   return (
     <>
@@ -54,7 +54,7 @@ export default function TrainerList() {
                trainers.map(trainer =>(
                    <>
                    {
-                       trainer.isSubscribed ? (
+                       !trainer.isSubscribed ? (
                         <div>
                             <Grid style={{textAlign:"center"}} container direction={"row"} gap={4}>
                         <Grid item>

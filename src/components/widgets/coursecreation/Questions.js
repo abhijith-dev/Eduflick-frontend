@@ -16,10 +16,10 @@ export default function Questions({setQuestionsSet}) {
       let obj = {
         id:count,
         question:question,
-        optionA:opA,
-        optionB:opB,
-        optionC:opC,
-        optionD:opD,
+        option1:opA,
+        option2:opB,
+        option3:opC,
+        option4:opD,
         answer:ans
       }
       setQuestionsSet(prev=>[...prev,obj])

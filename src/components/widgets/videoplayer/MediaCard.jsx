@@ -15,7 +15,7 @@ export default function MediaCard({course,videoSelection}) {
           <CardMedia
         component="img"
         height="245"
-        image={course.thumbnail}
+        image={`https://localhost:44304/${course.thumbnail}`}
         alt="green iguana"
       />
         </Grid>

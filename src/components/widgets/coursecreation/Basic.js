@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
-export default function Basic({setCourseName,setCourseDesc,setCourseDuration}) {
+export default function Basic({setCourseName,setCourseDesc,setCourseDuration,setCourseTopics}) {
   return (
     <React.Fragment>
       <Typography style={{color:"#222"}} variant="h6" gutterBottom>
@@ -41,6 +41,18 @@ export default function Basic({setCourseName,setCourseDesc,setCourseDuration}) {
             name="courseduration"
             label="Course Duration"
             onChange={e=>setCourseDuration(e.target.value)}
+            fullWidth
+            autoComplete="duration"
+            variant="standard"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="topics"
+            name="topics"
+            label="Course Covered Topics"
+            onChange={e=>setCourseTopics(e.target.value)}
             fullWidth
             autoComplete="duration"
             variant="standard"
