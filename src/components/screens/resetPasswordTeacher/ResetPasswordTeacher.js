@@ -17,7 +17,7 @@ const theme = createTheme({
     }  
 });
 
-export default function ResetPasswordStudent() {
+export default function ResetPasswordTeacher() {
   const [toggle,setToggle] = React.useState(true)
   const [error,setError] = React.useState(false)
   const [errorMessage,setErrorMessage] = React.useState('')
@@ -27,9 +27,9 @@ export default function ResetPasswordStudent() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const body = new FormData()
-    body.append('ToEmail',data.get('usn'))
+    body.append('ToEmail',data.get('email'))
     await forgotPassword(body)
-    addItem('value',data.get('usn'))
+    addItem('value',data.get('email'))
     setToggle(false)
   }
 
@@ -46,7 +46,7 @@ export default function ResetPasswordStudent() {
       setErrorMessage('opps something went wrong')
     }
     else{
-      window.location.href = "/student"
+      window.location.href = "/teacher"
     }
   };
 
@@ -77,10 +77,10 @@ export default function ResetPasswordStudent() {
               required
               fullWidth
               color='secondary'
-              id="usn"
-              label="USN"
+              id="email"
+              label="Email Address"
               style={{backgroundColor:"#fff",borderRadius:"10px"}}
-              name="usn"
+              name="email"
               autoComplete="off"
             />
             <Button

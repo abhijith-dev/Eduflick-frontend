@@ -22,7 +22,7 @@
 
 @keyframes image-animation {
     0%{
-        top:500px
+        top:500px;
     }
     100%{
         top:0

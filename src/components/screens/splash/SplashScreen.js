@@ -13,8 +13,9 @@ export default function SplashScreen() {
         <Grid item mt={5} ml={5}  container xs={12} direction={"row"} spacing={6}>
           <Grid item xs={6} >
           <div className='content'>
-          <h3 className='diff'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum....</h3> 
-          <p>please login here...</p>
+          <h3 className='diff'>Eduflick help organizations of all types and sizes prepare for the path ahead — wherever it leads. Our curated collection of business and technical courses help companies, governments, and nonprofits go further by placing learning at the center of their strategies</h3> 
+          <h3 className='diff'>We’re committed to changing the future of learning for the better. Dig into our original research to learn about the forces that are shaping the modern workplace.</h3> 
+          <h4>please login here...</h4>
           </div>
           <Stack className='buttons' mt={5} ml={5}  direction={"row"} spacing={5}>
           <Link to={"/student"} style={{textDecoration:"none"}}><Button size={"large"} style={styles.button}>I'm Student</Button></Link>

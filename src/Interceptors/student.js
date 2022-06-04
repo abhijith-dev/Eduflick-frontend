@@ -151,3 +151,22 @@ export async function submitQuestions(score,courseId){
     })
     return response
   }
+
+  export async function searchTrainer(key){
+    let response = []
+    await axios({
+        url:`${BASE_URL}/`,
+        method:'POST',
+        headers:headers
+    })
+    .then(res=>{
+        if(res.data===null)
+            response=[];
+        else
+            response = res.data;
+    })
+    .catch(error=>{
+        response = []
+    })
+    return response
+  }

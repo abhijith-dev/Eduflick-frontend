@@ -5,13 +5,15 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { getTrainers, subscribeTrainer } from '../../../Interceptors/student';
+import { getTrainers, subscribeTrainer,searchTrainer } from '../../../Interceptors/student';
 import Loading from '../../widgets/loading/Loading';
 
 export default function TrainerList() {
 
   const [trainers,setTrainers] = React.useState([])
   const [loading,setLoading] = React.useState(false)
+  const [key,setKey] = React.useState('')
+
   React.useEffect(()=>{
     setLoading(true)
     async function fetch(){
@@ -26,6 +28,10 @@ export default function TrainerList() {
     document.querySelector(`#${event.target.id}`).style.backgroundColor = "grey"
     let id =  (event.target.id).toString().split("-")[1];
     await subscribeTrainer(parseInt(id))
+  }
+  const search = async()=>{
+    let response = await searchTrainer(key)
+    setTrainers(response.data)
   }
   return (
     <>
@@ -43,12 +49,20 @@ export default function TrainerList() {
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search Trainer"
         inputProps={{ 'aria-label': 'Search Trainer' }}
+        value={key}
+        onChange ={(e)=>{setKey(e.target.value)}}
       />
-      <IconButton  sx={{ p: '10px' }} aria-label="search">
+      <IconButton onClick={search}  sx={{ p: '10px' }} aria-label="search">
         <SearchIcon />
       </IconButton>
     </Paper>
+    {
+      trainers.length === 0 && !loading ? (<h3 style={{textAlign:"center",color:"#fff",marginTop:"10rem"}}>No trainers available </h3>):null
+    }
     <Paper style={{width:"80%",marginLeft:"10rem",marginTop:"3rem"}}>
+      {
+        loading?(<Loading />):null
+      }
         <Grid>
            {
                trainers.map(trainer =>(
@@ -56,11 +70,11 @@ export default function TrainerList() {
                    {
                        !trainer.isSubscribed ? (
                         <div>
-                            <Grid style={{textAlign:"center"}} container direction={"row"} gap={4}>
+                            <Grid style={{textAlign:"center"}} container direction={"row"} gap={5}>
                         <Grid item>
-                        <Typography style={{color:"#222",marginTop:"20px",marginLeft:"20rem"}}>{trainer.name} - {trainer.specialization1}</Typography>
+                        <Typography style={{color:"#222",marginTop:"20px",marginLeft:"20rem",minWidth:"20rem"}}>{trainer.name} - {trainer.specialization1}</Typography>
                         </Grid>
-                        <Grid item> 
+                        <Grid  item> 
                         <Button
                             variant="contained"
                             sx={{ mt: 2, mb: 2, ml: 2 }}

@@ -141,30 +141,45 @@ export async function createStudent(body){
         data:body
     })
     .then(res=>{
-        response.error = true
+        response.error = false
         response.data = 'success'
     })    
     .catch(error=>{
-     response.error = false
-     response.data = error.response.message
+     response.error = true
     })
     return response
 }
 
 export async function resetPassword(body){
     let response = {}
+    let value = sessionStorage.getItem('value')
+    let data = new FormData()
+    data.append('code',body.pin)
+    data.append('email',value)
     await axios({
         url:`${BASE_URL}/ForgotPassword/verifyOTP`,
         method:'POST',
         data:body
     })
-    .then(res=>{
-        response.error = true
-        response.data = 'success'
+    .then(async(res)=>{
+        let request = {
+            email:value,
+            password:body.password
+        }
+        await axios({
+            url:`${BASE_URL}/ForgotPassword/resetpassword`,
+            method:'POST',
+            data:request
+        })
+        .then(result=>{
+            response.error = false
+        })
+        .catch(err=>{
+            response.error = true
+        })
     })    
     .catch(error=>{
-     response.error = false
-     response.data = error.response.message
+     response.error = true
     })
     return response
 }

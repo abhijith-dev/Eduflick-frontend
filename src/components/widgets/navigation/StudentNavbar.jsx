@@ -32,6 +32,7 @@ const home = async()=>{
 const logout = async()=>{
   removeItem('token')
   removeItem('role')
+  removeItem('user')
   window.location.href = '/'
 }
 

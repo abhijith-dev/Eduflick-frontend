@@ -105,7 +105,7 @@ export default function TeacherLoginScreen() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link color={'#fff'} className='link' to={"/reset"}>
+                <Link color={'#fff'} className='link' to={"/reset/teacher"}>
                   Forgot password?
                 </Link>
               </Grid>

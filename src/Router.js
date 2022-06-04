@@ -17,6 +17,7 @@ import StudentCourse from "./components/widgets/courselist/StudentCourse";
 import TrainerList from "./components/widgets/explore/TrainerList";
 import TeacherProfile from "./components/widgets/profile/TeacherProfile";
 import TeacherCourse from "./components/widgets/courselist/TeacherCourse";
+import ResetPasswordTeacher from './components/screens/resetPasswordTeacher/ResetPasswordTeacher';
 
 function RouteController() {
   const [user,setUser] = React.useState(null)
@@ -43,6 +44,7 @@ function RouteController() {
         <Route path="/course/:id" element={<VideoPlayer />} />
         <Route path="/exam/:id" element={<QuestionsPaper />} />
         <Route path="/reset" element={<ResetPasswordStudent />} />
+        <Route path="/reset/teacher" element={<ResetPasswordTeacher />} />
         <Route path="/student/profile" element={<StudentProfile/>} />
         <Route path="/student/course" element={<StudentCourse/>} />
         <Route path="/student/explore" element={<TrainerList/>} />

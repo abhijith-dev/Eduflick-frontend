@@ -1,9 +1,10 @@
 import React from 'react'
-import { Grid, Button,Radio,RadioGroup,FormControlLabel,Typography } from '@mui/material'
+import { Grid, Button,Radio,RadioGroup,FormControlLabel,Typography, Alert } from '@mui/material'
 import './questionpaper.css'
 import { getQuestions,submitQuestions } from '../../../Interceptors/student';
 export default function QuestionsPaper() {
   const [questions,setQuestions] = React.useState([])
+  const [error,setError] = React.useState(false)
   React.useEffect(()=>{
     async function fetch(){
       let url = window.location.pathname;
@@ -30,13 +31,30 @@ export default function QuestionsPaper() {
     }
     let url = window.location.pathname;
     let id = url.substring(url.lastIndexOf('/') + 1);
-    await submitQuestions(correctAnswerCount,id) 
-    //window.location.href="/"
+    let candidatePass = false
+    const passPercentage = 55
+    let earnedPercentage = (100*parseInt(correctAnswerCount)/(parseInt(questions.length)))
+    if(earnedPercentage >= passPercentage){
+      candidatePass = true
+    }
+    if(candidatePass){
+      await submitQuestions(correctAnswerCount,id) 
+      window.location.href="/"
+    }
+    else{
+      setError(true)
+      setTimeout(() => {
+        window.location.href = `/course/${id}`
+      }, 2000);
+    }
   }
   return (
     <>
      <Grid container m={5} direction={"column"} sx={{width:"95%",height:"100%",backgroundColor:"#fff",borderRadius:'6px'}}> 
-        <h1 style={{textAlign:"center",color:'purple'}}>React front-end development</h1> 
+        <h1 style={{textAlign:"center",color:'purple'}}>Course Questions</h1> 
+        {
+          error ? (<Alert severity="warning" >didn't get a passing mark please watch the video and try again</Alert>):null
+        }
         <form onSubmit={answerCheck}>
         {
            questions.map((qn,index)=>(
