@@ -25,7 +25,7 @@ export default function MediaCard({course,videoSelection}) {
           {course.courseName}
         </Typography>
         <Typography gutterBottom variant="body1" component="div">
-          - {course.instructorId}
+          - {course.instructorName}
         </Typography>
         <Typography variant="body2" color="text.secondary">
          {course.description}

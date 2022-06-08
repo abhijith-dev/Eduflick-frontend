@@ -154,10 +154,15 @@ export async function submitQuestions(score,courseId){
 
   export async function searchTrainer(key){
     let response = []
+    let user = getUserInfo()
+    let userId = user.id;
+    let fromdata = new FormData()
+    fromdata.append("SearchElement",key)
     await axios({
-        url:`${BASE_URL}/`,
+        url:`${BASE_URL}/coursecreation/getsearchresults/${userId}`,
         method:'POST',
-        headers:headers
+        headers:headers,
+        data:fromdata
     })
     .then(res=>{
         if(res.data===null)
